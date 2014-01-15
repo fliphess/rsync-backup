@@ -53,7 +53,7 @@ def logger(name, verbosity=1):
 
 def rsync_dir(source, target, node, keyfile):
    ssh_options = ' -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
-   ssh_option += ' -i %s' % keyfile
+   ssh_options += ' -i %s' % keyfile
    ssh_options += ' -x -o ConnectTimeout=1 -o PasswordAuthentication=no '
    ssh_cmd = "/usr/bin/ssh %s" % ssh_options
 
@@ -73,8 +73,8 @@ def rsync_dir(source, target, node, keyfile):
        log.info('Rsync for %s to %s at %s [OK]' % (source, target, node))
        return True
    else:
-       log.debug('#' * 80)
        log.error('Rsync for %s to %s at %s: exitcode: %s [FAILED]' % (source, target, node, exitCode))
+       log.debug('Output was: %s' % output)
        return False
 
 
@@ -90,6 +90,7 @@ def test_ssh(node, keyfile, user='root'):
         else:
             return True
     except Exception as e:
+        log.error('Testing ssh gave an exception: %s' % e)
         return False
 
 
@@ -133,5 +134,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
