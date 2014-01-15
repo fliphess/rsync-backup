@@ -63,7 +63,7 @@ def rsync_dir(source, target, node, keyfile):
        nextline = process.stdout.readline()
        if nextline == '' and process.poll() != None:
            break
-       log.debug(nextline)
+       log.debug(nextline.strip())
 
    output = process.communicate()[0]
    exitCode = process.returncode
