@@ -1,0 +1,11 @@
+#
+# Backup settings
+#
+
+backup_src: 
+    - /etc
+    - /root
+
+backup_dest: '/volumes/tank/back/mgmt-back'
+backup_host: filecluster8.c1
+ssh_key: /root/.ssh/backup-key.id-rsa
