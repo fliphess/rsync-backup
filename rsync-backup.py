@@ -18,7 +18,6 @@ def parse_options():
         Server backup script - Flip Hess 2014 - <flip@fliphess.com>
     """)
     parser.add_argument('-s', '--settings', help='Where to find the settings file', required=True, type=str)
-    parser.add_argument('-k', '--key', help='Where to find the ssh key', required=False, type=str)
     parser.add_argument('-v', '--verbosity', help='Show all debug output', action='count', default=0)
     arguments = vars(parser.parse_args())
     return arguments 
@@ -110,7 +109,7 @@ def main():
         sys.exit(1)
 
     log.info('Testing remote server %s for ssh connectivity' % settings['backup_host'])
-    ssh_ok = test_ssh(settings['backup_host'], args['key'])
+    ssh_ok = test_ssh(settings['backup_host'], settings['ssh_key'])
     if not ssh_ok:
         log.error('Failed to connect to %s' % settings['backup_host'])
         sys.exit(1)
@@ -125,7 +124,7 @@ def main():
         target_dir = os.path.join(settings['backup_dest'], addendum)
 
         log.info('Rsyncing sourcedir %s to %s:%s' % (source_dir, settings['backup_host'], target_dir))
-        rsync = rsync_dir(source_dir, target_dir, settings['backup_host'], args['key'])
+        rsync = rsync_dir(source_dir, target_dir, settings['backup_host'], settings['ssh_key'])
         if not rsync:
             log.error('Failed to connect to %s' % settings['backup_host'])
             sys.exit(1)

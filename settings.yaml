@@ -8,4 +8,4 @@ backup_src:
 
 backup_dest: '/volumes/tank/back/mgmt-back'
 backup_host: filecluster8.c1
-ssh_key: /root/.ssh/backup-key.id-rsa
+ssh_key: /root/.ssh/backupkey
