@@ -31,6 +31,9 @@ def logger(name, verbosity=1):
         2: logging.INFO,
         3: logging.DEBUG
     }.get(verbosity, logging.DEBUG)
+    
+    if log:
+        return log
 
     log = logging.getLogger(name=name)
     log.setLevel(level=level)
@@ -132,4 +135,5 @@ def main():
 
 
 if __name__ == "__main__":
+    log = {}
     main()
